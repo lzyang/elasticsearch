@@ -68,7 +68,7 @@ class Elasticsearch extends EnvironmentAwareCommand {
     }
 
     /**
-     * @TODO lzydebug 程序启动入口
+     * @TODO lzydebug 程序启动入口 2020年07月13日 星期一
      * Main entry point for starting elasticsearch
      */
     public static void main(final String[] args) throws Exception {
