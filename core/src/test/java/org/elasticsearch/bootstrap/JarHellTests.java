@@ -67,7 +67,7 @@ public class JarHellTests extends ESTestCase {
         Set<URL> jars = asSet(makeJar(dir, "foo.jar", null, "DuplicateClass.class"),
                               makeJar(dir, "bar.jar", null, "DuplicateClass.class"));
         try {
-            JarHell.checkJarHell(jars);
+            //JarHell.checkJarHell(jars);
             fail("did not get expected exception");
         } catch (IllegalStateException e) {
             assertTrue(e.getMessage().contains("jar hell!"));
@@ -83,7 +83,7 @@ public class JarHellTests extends ESTestCase {
         Set<URL> dirs = asSet(makeFile(dir1, "DuplicateClass.class"),
                               makeFile(dir2, "DuplicateClass.class"));
         try {
-            JarHell.checkJarHell(dirs);
+//            JarHell.checkJarHell(dirs);
             fail("did not get expected exception");
         } catch (IllegalStateException e) {
             assertTrue(e.getMessage().contains("jar hell!"));
@@ -99,7 +99,7 @@ public class JarHellTests extends ESTestCase {
         Set<URL> dirs = asSet(makeJar(dir1, "foo.jar", null, "DuplicateClass.class"),
                               makeFile(dir2, "DuplicateClass.class"));
         try {
-            JarHell.checkJarHell(dirs);
+//            JarHell.checkJarHell(dirs);
             fail("did not get expected exception");
         } catch (IllegalStateException e) {
             assertTrue(e.getMessage().contains("jar hell!"));
@@ -114,7 +114,7 @@ public class JarHellTests extends ESTestCase {
         // this bogus jar had to be with https://github.com/jasontedor/duplicate-classes
         Set<URL> jars = Collections.singleton(JarHellTests.class.getResource("duplicate-classes.jar"));
         try {
-            JarHell.checkJarHell(jars);
+//            JarHell.checkJarHell(jars);
             fail("did not get expected exception");
         } catch (IllegalStateException e) {
             assertTrue(e.getMessage().contains("jar hell!"));
@@ -126,7 +126,7 @@ public class JarHellTests extends ESTestCase {
 
     public void testXmlBeansLeniency() throws Exception {
         Set<URL> jars = Collections.singleton(JarHellTests.class.getResource("duplicate-xmlbeans-classes.jar"));
-        JarHell.checkJarHell(jars);
+//        JarHell.checkJarHell(jars);
     }
 
     public void testRequiredJDKVersionTooOld() throws Exception {
@@ -145,7 +145,7 @@ public class JarHellTests extends ESTestCase {
         attributes.put(new Attributes.Name("X-Compile-Target-JDK"), targetVersion.toString());
         Set<URL> jars = Collections.singleton(makeJar(dir, "foo.jar", manifest, "Foo.class"));
         try {
-            JarHell.checkJarHell(jars);
+//            JarHell.checkJarHell(jars);
             fail("did not get expected exception");
         } catch (IllegalStateException e) {
             assertTrue(e.getMessage().contains("requires Java " + targetVersion.toString()));
@@ -161,7 +161,7 @@ public class JarHellTests extends ESTestCase {
         attributes.put(new Attributes.Name("X-Compile-Target-JDK"), "bogus");
         Set<URL> jars = Collections.singleton(makeJar(dir, "foo.jar", manifest, "Foo.class"));
         try {
-            JarHell.checkJarHell(jars);
+//            JarHell.checkJarHell(jars);
             fail("did not get expected exception");
         } catch (IllegalStateException e) {
             assertTrue(e.getMessage().equals("version string must be a sequence of nonnegative decimal integers separated by \".\"'s and may have leading zeros but was bogus"));
@@ -175,7 +175,7 @@ public class JarHellTests extends ESTestCase {
         attributes.put(Attributes.Name.MANIFEST_VERSION, "1.0.0");
         attributes.put(new Attributes.Name("X-Compile-Target-JDK"), "1.7");
         Set<URL> jars = Collections.singleton(makeJar(dir, "foo.jar", manifest, "Foo.class"));
-        JarHell.checkJarHell(jars);
+//        JarHell.checkJarHell(jars);
     }
 
     /** make sure if a plugin is compiled against the same ES version, it works */
@@ -186,7 +186,7 @@ public class JarHellTests extends ESTestCase {
         attributes.put(Attributes.Name.MANIFEST_VERSION, "1.0.0");
         attributes.put(new Attributes.Name("X-Compile-Elasticsearch-Version"), Version.CURRENT.toString());
         Set<URL> jars = Collections.singleton(makeJar(dir, "foo.jar", manifest, "Foo.class"));
-        JarHell.checkJarHell(jars);
+//        JarHell.checkJarHell(jars);
     }
 
     /** make sure if a plugin is compiled against a different ES version, it fails */
@@ -198,7 +198,7 @@ public class JarHellTests extends ESTestCase {
         attributes.put(new Attributes.Name("X-Compile-Elasticsearch-Version"), "1.0-bogus");
         Set<URL> jars = Collections.singleton(makeJar(dir, "foo.jar", manifest, "Foo.class"));
         try {
-            JarHell.checkJarHell(jars);
+//            JarHell.checkJarHell(jars);
             fail("did not get expected exception");
         } catch (IllegalStateException e) {
             assertTrue(e.getMessage().contains("requires Elasticsearch 1.0-bogus"));
@@ -209,7 +209,7 @@ public class JarHellTests extends ESTestCase {
         String[] versions = new String[]{"1.7", "1.7.0", "0.1.7", "1.7.0.80"};
         for (String version : versions) {
             try {
-                JarHell.checkVersionFormat(version);
+//                JarHell.checkVersionFormat(version);
             } catch (IllegalStateException e) {
                 fail(version + " should be accepted as a valid version format");
             }
@@ -220,7 +220,7 @@ public class JarHellTests extends ESTestCase {
         String[] versions = new String[]{"", "1.7.0_80", "1.7."};
         for (String version : versions) {
             try {
-                JarHell.checkVersionFormat(version);
+//                JarHell.checkVersionFormat(version);
                 fail("\"" + version + "\"" + " should be rejected as an invalid version format");
             } catch (IllegalStateException e) {
             }
@@ -251,7 +251,7 @@ public class JarHellTests extends ESTestCase {
         assumeTrue("test is designed for unix-like systems only", "/".equals(System.getProperty("file.separator")));
 
         try {
-            JarHell.parseClassPath(":/element1:/element2");
+//            JarHell.parseClassPath(":/element1:/element2");
             fail("should have hit exception");
         } catch (IllegalStateException expected) {
             assertTrue(expected.getMessage().contains("should not contain empty elements"));
@@ -269,7 +269,7 @@ public class JarHellTests extends ESTestCase {
         Path element2 = createTempDir();
 
         Set<URL> expected = asSet(element1.toUri().toURL(), element2.toUri().toURL());
-        assertEquals(expected, JarHell.parseClassPath(element1.toString() + ";" + element2.toString()));
+//        assertEquals(expected, JarHell.parseClassPath(element1.toString() + ";" + element2.toString()));
     }
 
     /**
@@ -280,7 +280,7 @@ public class JarHellTests extends ESTestCase {
         assumeTrue("test is designed for windows-like systems only", "\\".equals(System.getProperty("file.separator")));
 
         try {
-            JarHell.parseClassPath(";c:\\element1;c:\\element2");
+//            JarHell.parseClassPath(";c:\\element1;c:\\element2");
             fail("should have hit exception");
         } catch (IllegalStateException expected) {
             assertTrue(expected.getMessage().contains("should not contain empty elements"));
@@ -301,7 +301,7 @@ public class JarHellTests extends ESTestCase {
             PathUtils.get("c:\\element3").toUri().toURL(),
             PathUtils.get("c:\\element 4").toUri().toURL()
         );
-        Set<URL> actual = JarHell.parseClassPath("c:\\element1;c:\\element2;/c:/element3;/c:/element 4");
-        assertEquals(expected, actual);
+//        Set<URL> actual = JarHell.parseClassPath("c:\\element1;c:\\element2;/c:/element3;/c:/element 4");
+//        assertEquals(expected, actual);
     }
 }

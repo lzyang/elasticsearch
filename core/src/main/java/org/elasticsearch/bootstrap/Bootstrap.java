@@ -215,12 +215,13 @@ final class Bootstrap {
             });
         }
 
-        try {
-            // look for jar hell
-            JarHell.checkJarHell();
-        } catch (IOException | URISyntaxException e) {
-            throw new BootstrapException(e);
-        }
+//        try {
+//            // look for jar hell
+//        TODO lzydebug 注释jar hell,防止jdk版本问题
+//            JarHell.checkJarHell();
+//        } catch (IOException | URISyntaxException e) {
+//            throw new BootstrapException(e);
+//        }
 
         // install SM after natives, shutdown hooks, etc.
         try {
